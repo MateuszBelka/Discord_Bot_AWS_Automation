@@ -1,1 +1,1 @@
-test for emil
+Funkcje bota
