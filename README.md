@@ -1,1 +1,2 @@
 Funkcje bota
+
