@@ -3,6 +3,7 @@ This is a discord bot for the Shr1mp server with the intent of supporting all of
 
 ## Functionality
 - Start/Stop Factorio server `in progress`
+
 ## Requirements
 #### Python 3.6.x (latest version)
 - [Windows](https://www.python.org/downloads/windows/)
@@ -25,5 +26,6 @@ To push all the dependencies to the requirements.txt
 ```bash
 $ pip freeze > requirements.txt
 ```
+
 ## Recommended IDE
 [PyCharm](https://www.jetbrains.com/pycharm/)
