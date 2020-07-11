@@ -1,11 +1,10 @@
 # Author:   Mateusz Belka
 # Created:  11-Jul-2020
-#
-# Clears messages in the channel that the command has been sent
 
 
-async def clear(ctx, number):
-    await ctx.channel.purge(limit=number + 1)
+async def clear(msg_context, number):
+    # Clears X messages in the channel that the command has been sent
+    await msg_context.channel.purge(limit=number + 1)
 
     debug_msg = "Cleared {}".format(number)
     if number == 1:
