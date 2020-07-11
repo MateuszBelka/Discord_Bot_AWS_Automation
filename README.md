@@ -1,4 +1,4 @@
-# Discord Bot
+# <img src="https://cdn.iconscout.com/icon/free/png-512/discord-3-569463.png" alt="discord icon" width="32"/> Discord Bot
 This is a discord bot for the Shr1mp server with the intent of supporting all of its users needs. The Bot will be hosted on AWS upon release.
 ## Functionality
 - Start/Stop Factorio server
