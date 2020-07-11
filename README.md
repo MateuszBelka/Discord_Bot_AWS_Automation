@@ -8,5 +8,8 @@ Python 3.6.x (latest version)
 - [MacOS](https://www.python.org/downloads/mac-osx/)
 - [Linux](https://www.python.org/downloads/source/)
 - [Other](https://www.python.org/download/other/)
+
+Dependencies:
+<!-- todo: Explain which pip (or otherwise) command to use to install all dependencies -->
 ## How to run
 <!-- todo: Write tutorial how to run it but also how to deploy changes -->
