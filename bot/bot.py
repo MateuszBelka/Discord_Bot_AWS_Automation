@@ -18,7 +18,6 @@ client.remove_command('help')
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
 
-
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -32,8 +31,8 @@ async def on_ready():
 
 
 @client.event
-async def on_member_join(member):
-    print(f'{member} joined the SHR1MP Clan!')
+async def on_member_join(member, context):
+    await context.send(f'{member} joined the SHR1MP Clan!')
     # print jest do terminala a nie do discorda
     # ciebie interesuje chyba context.send(string)
 
@@ -104,7 +103,7 @@ async def factorio_status(context):
     await util.send_state_message(channel, "Factorio")
 
 
-@client.command(pass_context=True)
+@client.command()
 async def clear(context, number: int):
     await messages.clear(context, number + 1)
 
@@ -113,5 +112,12 @@ async def clear(context, number: int):
 async def nuke(context):
     return await messages.reset_channel(context, discord)
 
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+
+@client.command()
+async def ban(ctx, member : discord.Member, *, reason=None):
+    await member.ban(reason=reason)
 
 client.run(TOKEN)

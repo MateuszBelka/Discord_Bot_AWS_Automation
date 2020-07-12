@@ -30,14 +30,15 @@ async def clear(ctx, number):
 async def reset_channel(ctx, discord):
     # If you decide to use this function, make sure to catch the return object, because ctx will not longer work
     author = ctx.message.author.name
-    if author == "Regis":  # todo: For actual bot set this to some rank
+    array = ["Regis", "futomak"]
+    if author in array:  # todo: For actual bot set this to some rank
         name = ctx.channel.name
         guild = ctx.channel.guild
 
         await delete_channel(ctx)
         return await create_new_channel(name, guild, discord)
     else:
-        await perror(ctx, "Only Regis can use this command")
+        await perror(ctx, "Only Regis and futomak can use this command")
 
 
 async def delete_channel(ctx):
