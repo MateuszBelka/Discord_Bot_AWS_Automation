@@ -25,7 +25,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="784bd509-4229-4714-a1a9-ba241a0c7692" name="Default Changelist" comment="" />
+    <list default="true" id="784bd509-4229-4714-a1a9-ba241a0c7692" name="Default Changelist" comment="Commit">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shr1mpBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shr1mpBot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +63,14 @@
       <option name="presentableId" value="Default" />
       <updated>1594511089688</updated>
     </task>
+    <task id="LOCAL-00001" summary="Commit">
+      <created>1594511510125</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1594511510125</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -71,15 +83,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594511229354">
+    <state x="129" y="220" key="MergeDialog" timestamp="1594511580605">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1594511229354" />
+    <state x="129" y="220" key="MergeDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1594511580605" />
+    <state x="799" y="559" key="MultipleFileMergeDialog" timestamp="1594511584829">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="799" y="559" key="MultipleFileMergeDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1594511584829" />
+    <state x="799" y="523" key="Vcs.Push.Dialog.v2" timestamp="1594513322354">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="799" y="523" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1594513322354" />
+    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594511466062">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1594511466062" />
   </component>
 </project>
