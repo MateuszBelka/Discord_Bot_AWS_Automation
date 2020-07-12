@@ -9,10 +9,8 @@ from util import messages
 
 
 load_dotenv(find_dotenv())
-TOKEN = os.environ.get("token")
-INSTANCE_ID = os.environ.get("instance_id")
-AWS_ACCESS_KEY_ID = os.environ.get("aws_access_key_id")
-AWS_SECRET_ACCESS_KEY = os.environ.get("aws_secret_access_key")
+TOKEN = os.environ.get("TOKEN")
+INSTANCE_ID = os.environ.get("INSTANCE_ID")
 
 client = commands.Bot(command_prefix='!')  # When typing bot commands, always start with '!'
 

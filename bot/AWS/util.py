@@ -12,10 +12,10 @@ async def send_state_message(context):
 
 
 def get_state():
-    instance_id = os.environ.get("instance_id")
+    instance_id = os.environ.get("INSTANCE_ID")
 
     ec2 = boto3.resource('ec2')
-    instance = ec2.Instance(instance_id)
+    instance = ec2.Instance(instance_id)    # Set new instance to get updates info about it's status
     return instance.state['Name']
 
 
