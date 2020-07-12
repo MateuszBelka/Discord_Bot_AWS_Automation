@@ -1,4 +1,6 @@
+import datetime
 import time
+import traceback
 
 import boto3
 import os
@@ -47,6 +49,12 @@ async def on_member_remove(member):
     # ciebie interesuje chyba context.send(string)
 
 
+@client.event
+async def on_command_error(ctx, e):
+    if isinstance(e, commands.CommandNotFound):
+        await messages.perror(ctx, "Invalid command used")
+
+
 @client.command()
 async def help(context):
     author = context.message.author
@@ -80,7 +88,7 @@ async def factorio_on(context):
     elif util.get_state() == "running":
         await context.send("Factorio server is already **ONLINE**!")
     else:
-        await messages.print_error(context, "Server is either being turned off or on right now. Wait")
+        await messages.perror(context, "Server is either being turned off or on right now. Wait")
 
 
 @client.command()
@@ -90,7 +98,7 @@ async def factorio_off(context):
     elif util.get_state() == "stopped":
         await context.send("Factorio server is already **OFFLINE**!")
     else:
-        await messages.print_error(context, "Server is either being turned off or on right now. Wait")
+        await messages.perror(context, "Server is either being turned off or on right now. Wait")
 
 
 @client.command()

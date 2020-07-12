@@ -8,7 +8,7 @@ def help_embed():
     embed = discord.Embed(
         colour=discord.Colour.orange()
     )
-    embed.set_author(name='Help')
+    embed.set_author(name='Getting Started')
     embed.add_field(name='!help', value='Placeholder', inline=False)
     embed.add_field(name='!shrimp', value='Placeholder', inline=False)
     embed.add_field(name='!przepowiednia', value='Placeholder', inline=False)
@@ -22,26 +22,26 @@ def help_embed():
     return embed
 
 
-async def clear(context, number):
+async def clear(ctx, number):
     # Clears 'number' of messages in the channel that the command has been sent
-    await context.channel.purge(limit=number)
+    await ctx.channel.purge(limit=number)
 
 
-async def reset_channel(context, discord):
-    # If you decide to use this function, make sure to catch the return object, because context will not longer work
-    author = context.message.author.name
+async def reset_channel(ctx, discord):
+    # If you decide to use this function, make sure to catch the return object, because ctx will not longer work
+    author = ctx.message.author.name
     if author == "Regis":  # todo: For actual bot set this to some rank
-        name = context.channel.name
-        guild = context.channel.guild
+        name = ctx.channel.name
+        guild = ctx.channel.guild
 
-        await delete_channel(context)
+        await delete_channel(ctx)
         return await create_new_channel(name, guild, discord)
     else:
-        await print_error(context, "Only Regis can use this command")
+        await perror(ctx, "Only Regis can use this command")
 
 
-async def delete_channel(context):
-    await context.channel.delete()
+async def delete_channel(ctx):
+    await ctx.channel.delete()
 
 
 async def create_new_channel(name, guild, discord):
@@ -52,24 +52,28 @@ async def create_new_channel(name, guild, discord):
     return await guild.create_text_channel(name, overwrites=overwrites)
 
 
-async def print_error(context, msg):
+async def perror(ctx, msg):
     final_msg = "ERROR: " + msg + "!"
-    await context.send(final_msg)
+    await ctx.send(final_msg)
 
 
 async def clear_factorio_text_channel(client):
+    channel_name = "factorio"
     factorioChannel = None
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == "factorio":  # todo: Update the name to whatever will be chosen on shrimp
+            if channel.name == channel_name:  # todo: Update the name to whatever will be chosen on shrimp
                 factorioChannel = channel
                 break
-    await purge(factorioChannel)
-    return factorioChannel
+        if factorioChannel is not None:
+            await purge(factorioChannel)
+        else:
+            await create_new_channel(channel_name, guild, discord)
+    return factorioChannel  # todo: Currently doesn't support multiple guilds
 
 
 async def factorio_welcome_message(channel):
-    await channel.send("**Hello!**\n Factorio server is **{}**!".format(util.get_state().upper()))
+    await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
 
 
 async def purge(channel):
