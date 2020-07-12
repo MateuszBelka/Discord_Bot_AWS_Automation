@@ -12,7 +12,7 @@ load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
 INSTANCE_ID = os.environ.get("INSTANCE_ID")
 
-client = commands.Bot(command_prefix='!')  # When typing bot commands, always start with '!'
+client = commands.Bot(command_prefix='$')  # When typing bot commands, always start with '!'
 client.remove_command('help')
 
 ec2 = boto3.resource('ec2')
