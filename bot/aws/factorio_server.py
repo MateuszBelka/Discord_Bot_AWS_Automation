@@ -1,12 +1,12 @@
 # Author:   Mateusz Belka
 # Created:  11-Jul-2020
 from util import messages
-from AWS import util
+from aws import util
 
 
 async def turn_off_instance(context, instance):
     if did_instance_stop(instance):
-        await util.server_state_change_update(context, "stopping", "stopped")
+        await util.server_state_change_update(context, "stopping", "stopped", "Factorio")
     else:
         await messages.print_error(context, "Failed to stop the Factorio server")
 
@@ -21,7 +21,7 @@ def did_instance_stop(instance):
 
 async def turn_on_instance(context, instance):
     if did_instance_start(instance):
-        await util.server_state_change_update(context, "pending", "running")
+        await util.server_state_change_update(context, "pending", "running", "Factorio")
     else:
         await messages.print_error(context, "Failed to start the Factorio server")
 
