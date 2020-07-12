@@ -3,10 +3,9 @@
 from aws import util
 import discord
 
-
 def help_embed():
     embed = discord.Embed(
-        colour=discord.Colour.orange()
+        colour=discord.Colour.blue()
     )
     embed.set_author(name='Getting Started')
     embed.add_field(name='!help', value='Placeholder', inline=False)
@@ -20,7 +19,6 @@ def help_embed():
     embed.add_field(name='!nuke', value='Placeholder', inline=False)
 
     return embed
-
 
 async def clear(ctx, number):
     # Clears 'number' of messages in the channel that the command has been sent
@@ -75,7 +73,6 @@ async def clear_factorio_text_channel(client):
 
 async def factorio_welcome_message(channel):
     await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
-
 
 async def purge(channel):
     await channel.purge()
