@@ -28,6 +28,7 @@ async def clear(context, number):
 
 
 async def reset_channel(context, discord):
+    # If you decide to use this function, make sure to catch the return object, because context will not longer work
     author = context.message.author.name
     if author == "Regis":  # todo: For actual bot set this to some rank
         name = context.channel.name
