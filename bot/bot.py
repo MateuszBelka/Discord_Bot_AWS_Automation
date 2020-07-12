@@ -9,7 +9,6 @@ import random
 from AWS import factorio_server, util
 from util import messages
 
-
 load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
 INSTANCE_ID = os.environ.get("INSTANCE_ID")
@@ -28,17 +27,21 @@ async def on_ready():
     print('Factorio server status: {}!'.format(util.get_state()))
     print('------------')
 
+
 @client.event
 async def on_member_join(member):
     print(f'{member} joined the SHR1MP Clan!')
+
 
 @client.event
 async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
 
+
 @client.command()
 async def shrimp(ctx):
-    await ctx.send(f'shromp (latency: {round(client.latency*1000)} ms)')
+    await ctx.send(f'shromp (latency: {round(client.latency * 1000)} ms)')
+
 
 @client.command(aliases=['8ball', 'przepowiednia'])
 async def _8ball(ctx, *, question):
@@ -52,7 +55,6 @@ async def _8ball(ctx, *, question):
                  'We zapytaj jeszcze raz',
                  'Matematyczna szansa']
     await ctx.send(f'{random.choice(responses)}')
-
 
 
 @client.command()
