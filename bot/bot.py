@@ -4,59 +4,54 @@ import os
 from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
 
-from AWS import factorio_server
-from AWS import util
+from AWS import factorio_server, util
 from util import messages
 
+
 load_dotenv(find_dotenv())
-TOKEN = os.environ.get("TOKEN")
-INSTANCE_ID = os.environ.get("INSTANCE_ID")
-INSTANCE_REGION = os.environ.get("INSTANCE_REGION")
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+TOKEN = os.environ.get("token")
+INSTANCE_ID = os.environ.get("instance_id")
+AWS_ACCESS_KEY_ID = os.environ.get("aws_access_key_id")
+AWS_SECRET_ACCESS_KEY = os.environ.get("aws_secret_access_key")
 
 client = commands.Bot(command_prefix='!')  # When typing bot commands, always start with '!'
 
-aws_client = boto3.client('ec2',
-                          region_name=INSTANCE_REGION,
-                          aws_access_key_id=AWS_ACCESS_KEY_ID,
-                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-session = boto3.Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
-                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-ec2 = boto3.resource('ec2',
-                     region_name=INSTANCE_REGION,
-                     aws_access_key_id=AWS_ACCESS_KEY_ID,
-                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
 
 
 @client.event
 async def on_ready():
     print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
+    print('Name: {}'.format(client.user.name))
+    print('ID: {}'.format(client.user.id))
+    print('Factorio server status: {}!'.format(util.get_state()))
     print('------------')
 
 
 @client.command()
-async def factorio_start(context):
-    if util.get_state(instance) is not "running":
-        await factorio_server.turn_on_instance(instance, context)
-    else:
+async def factorio_on(context):
+    if util.get_state() == "stopped":
+        await factorio_server.turn_on_instance(context, instance)
+    elif util.get_state() == "running":
         await context.channel.send("Factorio server is already on!")
+    else:
+        await messages.print_error(context, "Server is either being turned off or on right now. Wait")
 
 
 @client.command()
-async def factorio_stop(context):
-    if util.get_state(instance) is "running":
-        await factorio_server.turn_off_instance(instance, context)
-    else:
+async def factorio_off(context):
+    if util.get_state() == "running":
+        await factorio_server.turn_off_instance(context, instance)
+    elif util.get_state() == "stopped":
         await context.channel.send("Factorio server is already off!")
+    else:
+        await messages.print_error(context, "Server is either being turned off or on right now. Wait")
 
 
 @client.command()
 async def factorio_status(context):
-    await util.send_state_message(context, instance)
+    await util.send_state_message(context)
 
 
 @client.command(pass_context=True)
