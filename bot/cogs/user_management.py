@@ -1,3 +1,5 @@
+# Author:   Emil Andrzejewski
+# Created:  13-Jul-2020
 import discord
 from discord.ext import commands
 
@@ -10,6 +12,7 @@ class User_management(commands.Cog):
     @commands.command()
     async def kick(self, ctx, member: discord.Member, *, reason=None):
         await member.kick(reason=reason)
+        await ctx.send(f'Wyjebano {member.mention}')
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member, *, reason=None):
