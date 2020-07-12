@@ -7,7 +7,6 @@ from util import messages
 client = commands.Bot(command_prefix='!')  # When typing bot commands, always start with '!'
 load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
-BOT_NAME = client.user.name
 is_factorio_server_on = None
 
 
@@ -18,6 +17,13 @@ async def on_ready():
     print(client.user.id)
     print('------------')
 
+@client.event
+async def on_member_join(member):
+    print(f'{member} joined the SHR1MP Clan!')
+
+@client.event
+async def on_member_remove(member):
+    print(f'{member} left the SHR1MP Clan...')
 
 @client.command()
 async def factorio_start(context):
