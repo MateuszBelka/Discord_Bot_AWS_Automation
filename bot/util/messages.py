@@ -1,4 +1,4 @@
-# Author:   Mateusz Belka
+# Authors:   Mateusz Belka, Emil Andrzejewski
 # Created:  11-Jul-2020
 from aws import util
 import discord

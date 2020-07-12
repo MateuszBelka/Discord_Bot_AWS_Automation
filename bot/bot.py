@@ -20,6 +20,7 @@ instance = ec2.Instance(INSTANCE_ID)
 
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game('SHR1MP'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
