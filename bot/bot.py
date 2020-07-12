@@ -18,7 +18,6 @@ client.remove_command('help')
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
 
-
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -32,8 +31,8 @@ async def on_ready():
 
 
 @client.event
-async def on_member_join(member):
-    print(f'{member} joined the SHR1MP Clan!')
+async def on_member_join(member, context):
+    await context.send(f'{member} joined the SHR1MP Clan!')
     # print jest do terminala a nie do discorda
     # ciebie interesuje chyba context.send(string)
 
