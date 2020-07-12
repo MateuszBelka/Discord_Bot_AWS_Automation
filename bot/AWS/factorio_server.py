@@ -11,7 +11,7 @@ async def turn_off_instance(instance, context):
 
 def did_instance_stop(instance):
     try:
-        instance.stop(False, False)
+        instance.stop(False, False, False)
         return True
     except:
         return False
@@ -26,7 +26,7 @@ async def turn_on_instance(instance, context):
 
 def did_instance_start(instance):
     try:
-        instance.start()
+        instance.start("", False)
         return True
     except:
         return False
