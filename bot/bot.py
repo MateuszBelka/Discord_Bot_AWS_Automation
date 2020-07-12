@@ -103,7 +103,7 @@ async def factorio_status(context):
     await util.send_state_message(channel, "Factorio")
 
 
-@client.command(pass_context=True)
+@client.command()
 async def clear(context, number: int):
     await messages.clear(context, number + 1)
 
@@ -112,5 +112,12 @@ async def clear(context, number: int):
 async def nuke(context):
     return await messages.reset_channel(context, discord)
 
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+
+@client.command()
+async def ban(ctx, member : discord.Member, *, reason=None):
+    await member.ban(reason=reason)
 
 client.run(TOKEN)
