@@ -20,18 +20,18 @@ def get_state():
     return instance.state['Name']
 
 
-async def server_state_change_update(context, intermediate_state, final_state, prefix):
+async def server_state_change_update(ctx, final_state, prefix):
     interval = 5
     time_limit = 60
 
     if final_state == "stopped":
-        await context.send("Turning the server **OFF**!")
+        await ctx.send("Turning the server **OFF**!")
     elif final_state == "running":
-        await context.send("Turning the server **ON**!")
+        await ctx.send("Turning the server **ON**!")
 
     message_content = "..."
-    await context.send(message_content)
-    channel = context.channel
+    await ctx.send(message_content)
+    channel = ctx.channel
     last_messageID = channel.last_message_id
     last_message = await discord.TextChannel.fetch_message(channel, last_messageID)
     for i in range(0, time_limit):
@@ -43,11 +43,11 @@ async def server_state_change_update(context, intermediate_state, final_state, p
 
             state = get_state()
             if state == final_state:
-                # await messages.clear(context, i - 1)
-                await messages.purge(context.channel)
-                await context.send("{} server status is now: **{}**!".format(prefix, final_state.upper()))
+                # await messages.clear(ctx, i - 1)
+                await messages.purge(ctx.channel)
+                await ctx.send("{} server status is now: **{}**!".format(prefix, final_state.upper()))
                 break
             elif i == time_limit - 1:
-                # await messages.clear(context, i - 1)
-                await messages.purge(context.channel)
-                await messages.perror(context, "{} server status did not change to **{}** in time".format(prefix, final_state.upper()))
+                # await messages.clear(ctx, i - 1)
+                await messages.purge(ctx.channel)
+                await messages.perror(ctx, "{} server status did not change to **{}** in time".format(prefix, final_state.upper()))

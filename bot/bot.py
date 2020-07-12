@@ -1,4 +1,6 @@
+import datetime
 import time
+import traceback
 
 import boto3
 import os
@@ -45,6 +47,12 @@ async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
     # print jest do terminala a nie do discorda
     # ciebie interesuje chyba context.send(string)
+
+
+@client.event
+async def on_command_error(ctx, e):
+    if isinstance(e, commands.CommandNotFound):
+        await messages.perror(ctx, "Invalid command used")
 
 
 @client.command()

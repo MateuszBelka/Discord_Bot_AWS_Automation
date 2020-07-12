@@ -22,26 +22,26 @@ def help_embed():
     return embed
 
 
-async def clear(context, number):
+async def clear(ctx, number):
     # Clears 'number' of messages in the channel that the command has been sent
-    await context.channel.purge(limit=number)
+    await ctx.channel.purge(limit=number)
 
 
-async def reset_channel(context, discord):
-    # If you decide to use this function, make sure to catch the return object, because context will not longer work
-    author = context.message.author.name
+async def reset_channel(ctx, discord):
+    # If you decide to use this function, make sure to catch the return object, because ctx will not longer work
+    author = ctx.message.author.name
     if author == "Regis":  # todo: For actual bot set this to some rank
-        name = context.channel.name
-        guild = context.channel.guild
+        name = ctx.channel.name
+        guild = ctx.channel.guild
 
-        await delete_channel(context)
+        await delete_channel(ctx)
         return await create_new_channel(name, guild, discord)
     else:
-        await perror(context, "Only Regis can use this command")
+        await perror(ctx, "Only Regis can use this command")
 
 
-async def delete_channel(context):
-    await context.channel.delete()
+async def delete_channel(ctx):
+    await ctx.channel.delete()
 
 
 async def create_new_channel(name, guild, discord):
@@ -52,9 +52,9 @@ async def create_new_channel(name, guild, discord):
     return await guild.create_text_channel(name, overwrites=overwrites)
 
 
-async def perror(context, msg):
+async def perror(ctx, msg):
     final_msg = "ERROR: " + msg + "!"
-    await context.send(final_msg)
+    await ctx.send(final_msg)
 
 
 async def clear_factorio_text_channel(client):
