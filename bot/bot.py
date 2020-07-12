@@ -1,6 +1,7 @@
 from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
 import os
+import random
 
 from util import messages
 
@@ -24,6 +25,25 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
+
+@client.command()
+async def shrimp(ctx):
+    await ctx.send(f'shromp (latency: {round(client.latency*1000)} ms)')
+
+@client.command(aliases=['8ball', 'przepowiednia'])
+async def _8ball(ctx, *, question):
+    responses = ['+1 byczku',
+                 '+0.7 byczku',
+                 'Si si toro',
+                 'To jest niemozliwe do przewidzenia',
+                 'Ooooj tak',
+                 'Nie ma chuja',
+                 'Ta ta jasne',
+                 'We zapytaj jeszcze raz',
+                 'Matematyczna szansa']
+    await ctx.send(f'{random.choice(responses)}')
+
+
 
 @client.command()
 async def factorio_start(context):

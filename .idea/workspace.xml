@@ -25,7 +25,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="784bd509-4229-4714-a1a9-ba241a0c7692" name="Default Changelist" comment="commit">
+    <list default="true" id="784bd509-4229-4714-a1a9-ba241a0c7692" name="Default Changelist" comment="Added joining and leaving messages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/bot.py" afterDir="false" />
     </list>
@@ -100,7 +100,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594515754665</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added joining and leaving messages">
+      <created>1594516755980</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1594516755980</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,7 +125,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="Added joining and leaving messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added joining and leaving messages" />
   </component>
   <component name="WindowStateProjectService">
     <state x="659" y="432" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594515801736">
@@ -133,22 +141,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="985" y="532" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1594515799200" />
-    <state width="1631" height="274" key="GridCell.Tab.0.bottom" timestamp="1594516144291">
+    <state width="1675" height="274" key="GridCell.Tab.0.bottom" timestamp="1594518594123">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1631" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1594516144291" />
-    <state width="1631" height="274" key="GridCell.Tab.0.center" timestamp="1594516144291">
+    <state width="1675" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1594518594123" />
+    <state width="1675" height="274" key="GridCell.Tab.0.center" timestamp="1594518594123">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1631" height="274" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1594516144291" />
-    <state width="1631" height="274" key="GridCell.Tab.0.left" timestamp="1594516144290">
+    <state width="1675" height="274" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1594518594123" />
+    <state width="1675" height="274" key="GridCell.Tab.0.left" timestamp="1594518594122">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1631" height="274" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1594516144290" />
-    <state width="1631" height="274" key="GridCell.Tab.0.right" timestamp="1594516144291">
+    <state width="1675" height="274" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1594518594122" />
+    <state width="1675" height="274" key="GridCell.Tab.0.right" timestamp="1594518594123">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1631" height="274" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1594516144291" />
+    <state width="1675" height="274" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1594518594123" />
     <state x="129" y="220" key="MergeDialog" timestamp="1594511580605">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -161,9 +169,9 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="799" y="523" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1594513322354" />
-    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594515730397">
+    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594518763144">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1594515730397" />
+    <state x="1068" y="674" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1594518763144" />
   </component>
 </project>
