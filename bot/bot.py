@@ -31,8 +31,8 @@ async def on_ready():
 
 
 @client.event
-async def on_member_join(member, context):
-    await context.send(f'{member} joined the SHR1MP Clan!')
+async def on_member_join(member):
+    print(f'{member} joined the SHR1MP Clan!')
     # print jest do terminala a nie do discorda
     # ciebie interesuje chyba context.send(string)
 
@@ -112,26 +112,20 @@ async def clear(context, number: int):
 async def nuke(context):
     return await messages.reset_channel(context, discord)
 
-@client.command()
-async def kick(ctx, member : discord.Member, *, reason=None):
-    await member.kick(reason=reason)
+# LOADING / UNLOADING COGS
 
 @client.command()
-async def ban(ctx, member : discord.Member, *, reason=None):
-    await member.ban(reason=reason)
-    await ctx.send(f'Zbanowano {member.mention}')
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
 
 @client.command()
-async def unban(ctx, *, member):
-    banned_users = await ctx.guild.bans()
-    member_name, member_discriminator = member.split('#')
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
 
-    for ban_entry in banned_users:
-        user = ban_entry.user
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
-        if(user.name, user.discriminator) == (member_name, member_discriminator):
-            await ctx.guild.unban(user)
-            await ctx.send(f'Odbanowano {user.mention}')
-            return
+###########################################################
 
 client.run(TOKEN)
