@@ -1,5 +1,5 @@
 # <img src="https://cdn.iconscout.com/icon/free/png-512/discord-3-569463.png" alt="discord icon" width="32"/> SHR1MP Bot
-This is a discord bot for the Shr1mp server with the intent of supporting all of its users needs. The Bot will be hosted on AWS upon release.
+This is a discord bot for the Shr1mp server with the intent of supporting all of its users needs. The Bot will be hosted on heroku upon release.
 
 ## Functionality
 - Start/Stop Factorio server
@@ -44,6 +44,3 @@ To push all the dependencies to the requirements.txt
 ```bash
 $ pip freeze > requirements.txt
 ```
-
-## Recommended IDE
-[PyCharm](https://www.jetbrains.com/pycharm/)
