@@ -8,7 +8,7 @@ def help_embed():
     embed = discord.Embed(
         colour=discord.Colour.orange()
     )
-    embed.set_author(name='Help')
+    embed.set_author(name='Getting Started')
     embed.add_field(name='!help', value='Placeholder', inline=False)
     embed.add_field(name='!shrimp', value='Placeholder', inline=False)
     embed.add_field(name='!przepowiednia', value='Placeholder', inline=False)
@@ -37,7 +37,7 @@ async def reset_channel(context, discord):
         await delete_channel(context)
         return await create_new_channel(name, guild, discord)
     else:
-        await print_error(context, "Only Regis can use this command")
+        await perror(context, "Only Regis can use this command")
 
 
 async def delete_channel(context):
@@ -52,24 +52,28 @@ async def create_new_channel(name, guild, discord):
     return await guild.create_text_channel(name, overwrites=overwrites)
 
 
-async def print_error(context, msg):
+async def perror(context, msg):
     final_msg = "ERROR: " + msg + "!"
     await context.send(final_msg)
 
 
 async def clear_factorio_text_channel(client):
+    channel_name = "factorio"
     factorioChannel = None
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == "factorio":  # todo: Update the name to whatever will be chosen on shrimp
+            if channel.name == channel_name:  # todo: Update the name to whatever will be chosen on shrimp
                 factorioChannel = channel
                 break
-    await purge(factorioChannel)
-    return factorioChannel
+        if factorioChannel is not None:
+            await purge(factorioChannel)
+        else:
+            await create_new_channel(channel_name, guild, discord)
+    return factorioChannel  # todo: Currently doesn't support multiple guilds
 
 
 async def factorio_welcome_message(channel):
-    await channel.send("**Hello!**\n Factorio server is **{}**!".format(util.get_state().upper()))
+    await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
 
 
 async def purge(channel):

@@ -50,4 +50,4 @@ async def server_state_change_update(context, intermediate_state, final_state, p
             elif i == time_limit - 1:
                 # await messages.clear(context, i - 1)
                 await messages.purge(context.channel)
-                await messages.print_error(context, "{} server status did not change to **{}** in time".format(prefix, final_state.upper()))
+                await messages.perror(context, "{} server status did not change to **{}** in time".format(prefix, final_state.upper()))
