@@ -18,6 +18,14 @@ client.remove_command('help')
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
 
+"""
+todo:
+- better handling of guilds
+- better handling of user roles and limiting actions depending on them
+- better handling of commands available in specific channels
+- consider removing clear, flush and nuke commands from user availability
+"""
+
 
 @client.event
 async def on_ready():
