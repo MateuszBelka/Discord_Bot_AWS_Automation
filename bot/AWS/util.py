@@ -32,8 +32,6 @@ async def server_state_change_update(context, intermediate_state, final_state):
         time.sleep(interval)
 
         state = get_state()
-        print("Factorio server status: {}".format(state))
-
         if state == final_state:
             await messages.clear(context, i - 1)
             await context.channel.send("Factorio server status is now: {}!".format(final_state.capitalize()))
