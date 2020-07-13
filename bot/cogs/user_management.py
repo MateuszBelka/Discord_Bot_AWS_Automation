@@ -3,6 +3,7 @@
 import discord
 from discord.ext import commands
 
+
 class User_management(commands.Cog):
 
     def __init__(self, client):
@@ -34,6 +35,7 @@ class User_management(commands.Cog):
                 await ctx.send(f'Odbanowano {user.mention}.')
                 await member.send(f'Zostałeś odbanowany z {ctx.guild}.')
                 return
+
 
 def setup(client):
     client.add_cog(User_management(client))

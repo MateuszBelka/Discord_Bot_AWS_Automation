@@ -1,4 +1,3 @@
-import boto3
 import os
 import random
 import discord
@@ -6,22 +5,19 @@ from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
 from util import privileges
 
-from aws import factorio_server, util
+from aws import util
 from util import messages
 
 load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
-INSTANCE_ID = os.environ.get("INSTANCE_ID")
 
 client = commands.Bot(command_prefix='$')
 client.remove_command('help')
 
-ec2 = boto3.resource('ec2')
-instance = ec2.Instance(INSTANCE_ID)
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.idle, activity=discord.Game('SHR1MP'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('SHR1MP'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
@@ -32,6 +28,7 @@ async def on_ready():
         await messages.factorio_welcome_message(factorio_channel)
         await factorio_channel.send(embed=messages.help_embed())
 
+
 @client.event
 async def on_member_join(member):
     print(f'{member} joined the SHR1MP Clan!')
@@ -40,6 +37,7 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
+
 
 # Error handling
 
@@ -50,10 +48,10 @@ async def on_command_error(ctx, error):
 
 
 @client.command()
-async def help(context):
-    author = context.message.author
+async def help(ctx):
+    author = ctx.message.author
     await author.send(embed=messages.help_embed())
-    await messages.clear(context, 1)
+    await messages.clear(ctx, 1)
 
 
 @client.command()
@@ -76,36 +74,10 @@ async def _8ball(ctx, *, question):
 
 
 @client.command()
-async def factorio_on(context):
-    if util.get_state() == "stopped":
-        await factorio_server.turn_on_instance(context, instance)
-    elif util.get_state() == "running":
-        await context.send("Factorio server is already **ONLINE**!")
-    else:
-        await messages.perror(context, "Server is either being turned off or on right now. Wait")
-
-
-@client.command()
-async def factorio_off(context):
-    if util.get_state() == "running":
-        await factorio_server.turn_off_instance(context, instance)
-    elif util.get_state() == "stopped":
-        await context.send("Factorio server is already **OFFLINE**!")
-    else:
-        await messages.perror(context, "Server is either being turned off or on right now. Wait")
-
-
-@client.command()
-async def factorio_status(context):
-    channel = context.channel
-    await messages.purge(channel)
-    await util.send_state_message(channel, "Factorio")
-
-
-@client.command()
 @commands.has_permissions(manage_messages=True)
-async def clear(context, number: int):
-    await messages.clear(context, number + 1)
+async def clear(ctx, number: int):
+    await messages.clear(ctx, number + 1)
+
 
 # Error handling for clear (when there will be no specified int value given)
 @clear.error
@@ -115,11 +87,12 @@ async def clear_error(ctx, error):
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send("You don't have permissions to use this command")
 
+
 @client.command()
 @commands.check(privileges.nuke_priv)
-async def nuke(context):
-    return await messages.reset_channel(context, discord)
-    if(commands.check()==False):
+async def nuke(ctx):
+    return await messages.reset_channel(ctx, discord)
+    if (commands.check() == False):
         await perror(ctx, "Only Regis and futomak can use this command")
 
 
@@ -129,9 +102,11 @@ async def nuke(context):
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
 
+
 @client.command()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
+
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
