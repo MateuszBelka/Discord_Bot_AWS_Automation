@@ -12,11 +12,12 @@ load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
 INSTANCE_ID = os.environ.get("INSTANCE_ID")
 
-client = commands.Bot(command_prefix='$')  # When typing bot commands, always start with '!'
+client = commands.Bot(command_prefix='$')
 client.remove_command('help')
 
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
+
 
 @client.event
 async def on_ready():
