@@ -32,9 +32,10 @@ async def reset_channel(ctx, discord):
     if author in array:  # todo: For actual bot set this to some rank
         name = ctx.channel.name
         guild = ctx.channel.guild
+        overwrites = ctx.channel.overwrites
 
         await delete_channel(ctx)
-        return await create_new_channel(name, guild, discord)
+        return await create_new_channel(name, guild, discord, overwrites)
     else:
         await perror(ctx, "Only Regis and futomak can use this command")
 
@@ -43,11 +44,12 @@ async def delete_channel(ctx):
     await ctx.channel.delete()
 
 
-async def create_new_channel(name, guild, discord):
-    overwrites = {
-        guild.default_role: discord.PermissionOverwrite(send_messages=False)
-        # todo: Add more limitations on shrimp server
-    }
+async def create_new_channel(name, guild, discord, overwrites=None):
+    if overwrites is None:
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(send_messages=False)
+            # todo: Add more restrictions
+        }
     return await guild.create_text_channel(name, overwrites=overwrites)
 
 
