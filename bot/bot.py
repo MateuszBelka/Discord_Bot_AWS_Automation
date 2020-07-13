@@ -4,6 +4,7 @@ import random
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
+from util import privileges
 
 from aws import factorio_server, util
 from util import messages
@@ -18,7 +19,6 @@ client.remove_command('help')
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
 
-
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.idle, activity=discord.Game('SHR1MP'))
@@ -32,24 +32,20 @@ async def on_ready():
         await messages.factorio_welcome_message(factorio_channel)
         await factorio_channel.send(embed=messages.help_embed())
 
-
 @client.event
 async def on_member_join(member):
     print(f'{member} joined the SHR1MP Clan!')
-    # print jest do terminala a nie do discorda
-    # ciebie interesuje chyba context.send(string)
 
 
 @client.event
 async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
-    # print jest do terminala a nie do discorda
-    # ciebie interesuje chyba context.send(string)
 
+# Error handling
 
 @client.event
-async def on_command_error(ctx, e):
-    if isinstance(e, commands.CommandNotFound):
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
 
 
@@ -107,13 +103,25 @@ async def factorio_status(context):
 
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def clear(context, number: int):
     await messages.clear(context, number + 1)
 
+# Error handling for clear (when there will be no specified int value given)
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Please pass in the number of lines you want to clear')
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have permissions to use this command")
 
 @client.command()
+@commands.check(privileges.nuke_priv)
 async def nuke(context):
     return await messages.reset_channel(context, discord)
+    if(commands.check()==False):
+        await perror(ctx, "Only Regis and futomak can use this command")
+
 
 # LOADING / UNLOADING COGS
 
