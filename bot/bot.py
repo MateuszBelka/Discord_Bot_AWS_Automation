@@ -32,24 +32,20 @@ async def on_ready():
         await messages.factorio_welcome_message(factorio_channel)
         await factorio_channel.send(embed=messages.help_embed())
 
-
 @client.event
 async def on_member_join(member):
     print(f'{member} joined the SHR1MP Clan!')
-    # print jest do terminala a nie do discorda
-    # ciebie interesuje chyba context.send(string)
 
 
 @client.event
 async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
-    # print jest do terminala a nie do discorda
-    # ciebie interesuje chyba context.send(string)
 
+# Error handling
 
 @client.event
-async def on_command_error(ctx, e):
-    if isinstance(e, commands.CommandNotFound):
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
 
 
@@ -110,6 +106,11 @@ async def factorio_status(context):
 async def clear(context, number: int):
     await messages.clear(context, number + 1)
 
+# Error handling for clear (when there will be no specified int value given)
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Please pass in the number of lines you want to clear')
 
 @client.command()
 async def nuke(context):
