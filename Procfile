@@ -1,1 +1,1 @@
-worker: $(python bot/bot.py; cd bot)
+worker: $(cd bot; python bot.py)
