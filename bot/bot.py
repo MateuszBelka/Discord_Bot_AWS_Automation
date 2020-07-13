@@ -18,17 +18,10 @@ client.remove_command('help')
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
 
-"""
-todo:
-- better handling of guilds
-- better handling of user roles and limiting actions depending on them
-- better handling of commands available in specific channels
-- consider removing clear, flush and nuke commands from user availability
-"""
-
 
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game('SHR1MP'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
@@ -112,7 +105,7 @@ async def factorio_status(context):
     await util.send_state_message(channel, "Factorio")
 
 
-@client.command(pass_context=True)
+@client.command()
 async def clear(context, number: int):
     await messages.clear(context, number + 1)
 
@@ -121,5 +114,20 @@ async def clear(context, number: int):
 async def nuke(context):
     return await messages.reset_channel(context, discord)
 
+# LOADING / UNLOADING COGS
+
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
+
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+
+###########################################################
 
 client.run(TOKEN)
