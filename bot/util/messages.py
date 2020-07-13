@@ -25,18 +25,15 @@ async def clear(ctx, number):
     # Clears 'number' of messages in the channel that the command has been sent
     await ctx.channel.purge(limit=number)
 
+
 async def reset_channel(ctx, discord):
-    # If you decide to use this function, make sure to catch the return object, because ctx will not longer work
-    author = ctx.message.author.name
-    array = ["Regis", "futomak"]
-    if author in array:  # todo: For actual bot set this to some rank
         name = ctx.channel.name
         guild = ctx.channel.guild
         overwrites = ctx.channel.overwrites
 
         await delete_channel(ctx)
         return await create_new_channel(name, guild, discord, overwrites)
-    else:
+
         await perror(ctx, "Only Regis and futomak can use this command")
 
 

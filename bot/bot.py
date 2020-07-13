@@ -4,6 +4,7 @@ import random
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
+from util import privileges
 
 from aws import factorio_server, util
 from util import messages
@@ -17,7 +18,6 @@ client.remove_command('help')
 
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
-
 
 @client.event
 async def on_ready():
@@ -103,6 +103,7 @@ async def factorio_status(context):
 
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def clear(context, number: int):
     await messages.clear(context, number + 1)
 
@@ -111,10 +112,16 @@ async def clear(context, number: int):
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Please pass in the number of lines you want to clear')
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have permissions to use this command")
 
 @client.command()
+@commands.check(privileges.nuke_priv)
 async def nuke(context):
     return await messages.reset_channel(context, discord)
+    if(commands.check()==False):
+        await perror(ctx, "Only Regis and futomak can use this command")
+
 
 # LOADING / UNLOADING COGS
 
