@@ -2,6 +2,7 @@
 # Created:  11-Jul-2020
 from aws import util
 import discord
+from discord.ext import commands
 
 def help_embed():
     embed = discord.Embed(
@@ -23,7 +24,6 @@ def help_embed():
 async def clear(ctx, number):
     # Clears 'number' of messages in the channel that the command has been sent
     await ctx.channel.purge(limit=number)
-
 
 async def reset_channel(ctx, discord):
     # If you decide to use this function, make sure to catch the return object, because ctx will not longer work
