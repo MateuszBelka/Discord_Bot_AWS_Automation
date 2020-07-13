@@ -1,4 +1,4 @@
-# Author:   Mateusz Belka
+# Authors:   Mateusz Belka, Emil Andrzejewski
 # Created:  11-Jul-2020
 from aws import util
 import discord
@@ -8,15 +8,15 @@ def help_embed():
         colour=discord.Colour.blue()
     )
     embed.set_author(name='Getting Started')
-    embed.add_field(name='!help', value='Placeholder', inline=False)
-    embed.add_field(name='!shrimp', value='Placeholder', inline=False)
-    embed.add_field(name='!przepowiednia', value='Placeholder', inline=False)
-    embed.add_field(name='!8ball', value='Placeholder', inline=False)
-    embed.add_field(name='!factorio_on', value='Placeholder', inline=False)
-    embed.add_field(name='!factorio_off', value='Placeholder', inline=False)
-    embed.add_field(name='!factorio_status', value='Placeholder', inline=False)
-    embed.add_field(name='!clear {integer}', value='Placeholder', inline=False)
-    embed.add_field(name='!nuke', value='Placeholder', inline=False)
+    embed.add_field(name='$help', value='Placeholder', inline=False)
+    embed.add_field(name='$shrimp', value='Placeholder', inline=False)
+    embed.add_field(name='$przepowiednia', value='Placeholder', inline=False)
+    embed.add_field(name='$8ball', value='Placeholder', inline=False)
+    embed.add_field(name='$factorio_on', value='Placeholder', inline=False)
+    embed.add_field(name='$factorio_off', value='Placeholder', inline=False)
+    embed.add_field(name='$factorio_status', value='Placeholder', inline=False)
+    embed.add_field(name='$clear {integer}', value='Placeholder', inline=False)
+    embed.add_field(name='$nuke', value='Placeholder', inline=False)
 
     return embed
 
@@ -57,7 +57,7 @@ async def perror(ctx, msg):
 
 
 async def clear_factorio_text_channel(client):
-    channel_name = "factorio"
+    channel_name = "bot-factorio"
     factorioChannel = None
     for guild in client.guilds:
         for channel in guild.channels:
@@ -73,6 +73,7 @@ async def clear_factorio_text_channel(client):
 
 async def factorio_welcome_message(channel):
     await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+
 
 async def purge(channel):
     await channel.purge()

@@ -21,7 +21,8 @@ Create `.env` file in the root directory and assign values of the following vari
 - TOKEN - a "key" used to control a Discord Bot. Acquire it from *discordapp.com/developers/applications/{APPLICATION_ID}/bots*.
 - INSTANCE_ID - used to find our factorio server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
 
-#### AWS configuration
+### AWS configuration
+#### Through AWS CLI
 - Download AWS CLI
     - [Windows](https://awscli.amazonaws.com/AWSCLIV2.msi)
     - [MacOS](https://awscli.amazonaws.com/AWSCLIV2.pkg)
@@ -38,9 +39,16 @@ AWS Secret Access Key: `from the step above`
 Default region name: eu-central-1  
 Default output format: json
 
-## How to run
-<!-- todo: Write tutorial how to run it but also how to deploy changes -->
-To push all the dependencies to the requirements.txt
+#### Through additional environments variables
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_DEFAULT_REGION
+- output
+
+## How to deploy
+In order for host to have access to all libraries in use. Run this command.
 ```bash
 $ pip freeze > requirements.txt
 ```
+
+Deployments to heroku are made automatically when new commits are pushed to master branch.
