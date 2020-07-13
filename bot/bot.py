@@ -28,8 +28,9 @@ async def on_ready():
     print('Factorio server status: {}!'.format(util.get_state()))
     print('------------')
     factorio_channel = await messages.clear_factorio_text_channel(client)
-    await messages.factorio_welcome_message(factorio_channel)
-    await factorio_channel.send(embed=messages.help_embed())
+    if factorio_channel is not None:
+        await messages.factorio_welcome_message(factorio_channel)
+        await factorio_channel.send(embed=messages.help_embed())
 
 
 @client.event
