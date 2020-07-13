@@ -58,7 +58,7 @@ async def perror(ctx, msg):
 
 
 async def clear_factorio_text_channel(client):
-    channel_name = "factorio"
+    channel_name = "bot-factorio"
     factorioChannel = None
     for guild in client.guilds:
         for channel in guild.channels:
