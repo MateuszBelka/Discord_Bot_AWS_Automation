@@ -1,1 +1,1 @@
-worker: $(cd bot; python bot.py)
+worker: cd bot & python bot.py & wait -n
