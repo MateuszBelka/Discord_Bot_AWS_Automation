@@ -1,1 +1,1 @@
-worker: cd bot & python bot.py & wait -n
+worker: cd bot && python bot.py && wait -n
