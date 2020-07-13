@@ -12,11 +12,12 @@ load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
 INSTANCE_ID = os.environ.get("INSTANCE_ID")
 
-client = commands.Bot(command_prefix='$')  # When typing bot commands, always start with '!'
+client = commands.Bot(command_prefix='$')
 client.remove_command('help')
 
 ec2 = boto3.resource('ec2')
 instance = ec2.Instance(INSTANCE_ID)
+
 
 @client.event
 async def on_ready():
@@ -27,8 +28,9 @@ async def on_ready():
     print('Factorio server status: {}!'.format(util.get_state()))
     print('------------')
     factorio_channel = await messages.clear_factorio_text_channel(client)
-    await messages.factorio_welcome_message(factorio_channel)
-    await factorio_channel.send(embed=messages.help_embed())
+    if factorio_channel is not None:
+        await messages.factorio_welcome_message(factorio_channel)
+        await factorio_channel.send(embed=messages.help_embed())
 
 
 @client.event
