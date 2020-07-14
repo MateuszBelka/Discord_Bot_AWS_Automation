@@ -1,7 +1,6 @@
 # Authors:   Emil Andrzejewski
 # Created:  14-Jul-2020
 
-import discord
 from discord.ext import commands
 from gaw.controller import GuessAWordGame
 
