@@ -32,10 +32,10 @@ class images(commands.Cog):
                     if subreddit in REDDIT_ENABLED_MEME_SUBREDDITS:
                         chosen_subreddit = subreddit
                     else:
-                        await ctx.send('Ten subreddit nie jest dostepny...')
+                        await ctx.send(f'Ten subreddit nie jest dostepny... Wybierz z tych: {REDDIT_ENABLED_MEME_SUBREDDITS}')
                         return
 
-                submissions = self.reddit.subreddit(chosen_subreddit).top()
+                submissions = self.reddit.subreddit(chosen_subreddit).hot()
 
                 post_to_pick = random.randint(1,10)
                 for i in range(0, post_to_pick):
