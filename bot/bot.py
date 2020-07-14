@@ -12,7 +12,6 @@ load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
 
 client = commands.Bot(command_prefix='$')
-client.remove_command('help')
 
 @client.event
 async def on_ready():
@@ -20,12 +19,10 @@ async def on_ready():
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
-    print('Factorio server status: {}!'.format(util.get_state()))
     print('------------')
     factorio_channel = await messages.clear_factorio_text_channel(client)
     if factorio_channel is not None:
-        await messages.factorio_welcome_message(factorio_channel)
-        await factorio_channel.send(embed=messages.help_embed())
+        await messages.factorio_status_message(factorio_channel)
 
 
 @client.event
@@ -39,18 +36,10 @@ async def on_member_remove(member):
 
 
 # Error handling
-
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
-
-
-@client.command()
-async def help(ctx):
-    author = ctx.message.author
-    await author.send(embed=messages.help_embed())
-    await messages.clear(ctx, 1)
 
 
 @client.command()
@@ -82,7 +71,7 @@ async def clear(ctx, number: int):
 @clear.error
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Please pass in the number of lines you want to clear')
+        await ctx.send('This command requires additional information.')
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send("You don't have permissions to use this command")
 
@@ -90,20 +79,18 @@ async def clear_error(ctx, error):
 @client.command()
 @commands.check(privileges.nuke_priv)
 async def nuke(ctx):
-    return await messages.reset_channel(ctx, discord)
-    if (commands.check() == False):
-        await perror(ctx, "Only Regis and futomak can use this command")
+    await messages.reset_channel(ctx)
 
 
 # LOADING / UNLOADING COGS
 
 @client.command()
-async def load(ctx, extension):
+async def load(extension):
     client.load_extension(f'cogs.{extension}')
 
 
 @client.command()
-async def unload(ctx, extension):
+async def unload(extension):
     client.unload_extension(f'cogs.{extension}')
 
 
