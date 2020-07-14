@@ -28,7 +28,7 @@ class Factorio(commands.Cog):
         elif 'status' in cmds:
             await self.server_status(ctx)
         else:
-            await messages.perror(ctx, "unexpected command")
+            await messages.perror(ctx, "Try: $factorio on, start, off, stop, status. You need to use of those arguments in combination with $factorio")
 
     async def server_start(self, ctx):
         if util.get_state() == "stopped":
@@ -48,8 +48,7 @@ class Factorio(commands.Cog):
 
     async def server_status(self, ctx):
         channel = ctx.channel
-        await messages.purge(channel)
-        await util.send_state_message(channel, "Factorio")
+        await messages.factorio_status_message_known_channel(channel)
 
 
 def setup(client):

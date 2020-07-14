@@ -5,7 +5,6 @@ from dotenv import load_dotenv, find_dotenv
 from discord.ext import commands
 from util import privileges
 
-from aws import util
 from util import messages
 
 load_dotenv(find_dotenv())
@@ -20,9 +19,7 @@ async def on_ready():
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
     print('------------')
-    factorio_channel = await messages.clear_factorio_text_channel(client)
-    if factorio_channel is not None:
-        await messages.factorio_status_message(factorio_channel)
+    await messages.factorio_status_message_known_client(client)
 
 
 @client.event
@@ -38,7 +35,11 @@ async def on_member_remove(member):
 # Error handling
 @client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await messages.perror(ctx, "Additional argument is required")
+    elif isinstance(error, commands.MissingPermissions):
+        await messages.perror(ctx, "You don't have permissions to use this command")
+    elif isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
 
 

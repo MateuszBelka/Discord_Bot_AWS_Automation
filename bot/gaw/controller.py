@@ -1,9 +1,7 @@
 # Authors:   Emil Andrzejewski
 # Created:  14-Jul-2020
 import random
-import discord
 from .model import GuessAWord
-from random_word import RandomWords
 
 games = {
 

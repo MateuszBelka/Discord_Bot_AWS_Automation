@@ -29,7 +29,7 @@ async def perror(ctx, msg):
     await ctx.send(final_msg)
 
 
-async def clear_factorio_text_channel(client):
+async def clear_factorio_text_channel_known_client(client):
     channel_name = "bot-factorio"
     factorioChannel = None
     for guild in client.guilds:
@@ -44,9 +44,17 @@ async def clear_factorio_text_channel(client):
     return factorioChannel
 
 
-async def factorio_status_message(channel):
-    print("Factorio server is {}!".format(util.get_state().upper()))
-    await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+async def factorio_status_message_known_client(client):
+    factorio_channel = await clear_factorio_text_channel_known_client(client)
+    if factorio_channel is not None:
+        print("Factorio server is {}!".format(util.get_state().upper()))
+        await factorio_channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+
+
+async def factorio_status_message_known_channel(channel):
+    if channel is not None:
+        print("Factorio server is {}!".format(util.get_state().upper()))
+        await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
 
 
 async def purge(channel):
