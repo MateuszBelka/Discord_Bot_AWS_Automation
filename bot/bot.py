@@ -1,8 +1,8 @@
 import os
 import random
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
+from discord.ext import commands
 from util import privileges
 
 from aws import util
@@ -13,7 +13,6 @@ TOKEN = os.environ.get("TOKEN")
 
 client = commands.Bot(command_prefix='$')
 client.remove_command('help')
-
 
 @client.event
 async def on_ready():
