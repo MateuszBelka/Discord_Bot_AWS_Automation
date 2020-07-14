@@ -23,7 +23,7 @@ class images(commands.Cog):
 
     # MEMIKI Z REDDITA
     @commands.command(aliases=['memik', 'meme'])
-    async def memik(self, ctx, subreddit: str = ""):
+    async def _memik(self, ctx, subreddit: str = ""):
         async with ctx.channel.typing():
             if self.reddit:
                 #start working
