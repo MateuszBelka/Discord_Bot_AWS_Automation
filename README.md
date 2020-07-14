@@ -5,7 +5,8 @@ This is a discord bot for the Shr1mp server with the intent of supporting all of
 - Start/Stop Factorio server
 
 ## Requirements
-#### Python 3.6.x (latest version)
+#### Python 3.6.x 
+(3.8 may cause ssl issues. For [solution](https://github.com/Rapptz/discord.py/issues/4159) download [this PEM](https://beans-took-my-kids.reeee.ee/38qB2n.png) from [here](https://crt.sh/?id=2835394))
 - [Windows](https://www.python.org/downloads/windows/)
 - [MacOS](https://www.python.org/downloads/mac-osx/)
 - [Linux](https://www.python.org/downloads/source/)

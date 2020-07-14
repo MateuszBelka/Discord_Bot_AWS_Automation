@@ -1,53 +1,27 @@
 # Authors:   Mateusz Belka, Emil Andrzejewski
 # Created:  11-Jul-2020
 from aws import util
-import discord
-from discord.ext import commands
 
-def help_embed():
-    embed = discord.Embed(
-        colour=discord.Colour.blue()
-    )
-    embed.set_author(name='Getting Started')
-    embed.add_field(name='$help', value='Placeholder', inline=False)
-    embed.add_field(name='$shrimp', value='Placeholder', inline=False)
-    embed.add_field(name='$przepowiednia', value='Placeholder', inline=False)
-    embed.add_field(name='$8ball', value='Placeholder', inline=False)
-    embed.add_field(name='$factorio_on', value='Placeholder', inline=False)
-    embed.add_field(name='$factorio_off', value='Placeholder', inline=False)
-    embed.add_field(name='$factorio_status', value='Placeholder', inline=False)
-    embed.add_field(name='$clear {integer}', value='Placeholder', inline=False)
-    embed.add_field(name='$nuke', value='Placeholder', inline=False)
-
-    return embed
 
 async def clear(ctx, number):
     # Clears 'number' of messages in the channel that the command has been sent
     await ctx.channel.purge(limit=number)
 
 
-async def reset_channel(ctx, discord):
-        name = ctx.channel.name
-        guild = ctx.channel.guild
-        overwrites = ctx.channel.overwrites
+async def reset_channel(ctx):
+    name = ctx.channel.name
+    guild = ctx.channel.guild
 
-        await delete_channel(ctx)
-        return await create_new_channel(name, guild, discord, overwrites)
-
-        await perror(ctx, "Only Regis and futomak can use this command")
+    await delete_channel(ctx)
+    await create_new_channel(name, guild)
 
 
 async def delete_channel(ctx):
     await ctx.channel.delete()
 
 
-async def create_new_channel(name, guild, discord, overwrites=None):
-    if overwrites is None:
-        overwrites = {
-            guild.default_role: discord.PermissionOverwrite(send_messages=False)
-            # todo: Add more restrictions
-        }
-    return await guild.create_text_channel(name, overwrites=overwrites)
+async def create_new_channel(name, guild):
+    await guild.create_text_channel(name)
 
 
 async def perror(ctx, msg):
@@ -55,23 +29,32 @@ async def perror(ctx, msg):
     await ctx.send(final_msg)
 
 
-async def clear_factorio_text_channel(client):
+async def clear_factorio_text_channel_known_client(client):
     channel_name = "bot-factorio"
     factorioChannel = None
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == channel_name:  # todo: Update the name to whatever will be chosen on shrimp
+            if channel.name == channel_name:
                 factorioChannel = channel
                 break
         if factorioChannel is not None:
             await purge(factorioChannel)
         else:
-            await create_new_channel(channel_name, guild, discord)
-    return factorioChannel  # todo: Currently doesn't support multiple guilds
+            await create_new_channel(channel_name, guild)
+    return factorioChannel
 
 
-async def factorio_welcome_message(channel):
-    await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+async def factorio_status_message_known_client(client):
+    factorio_channel = await clear_factorio_text_channel_known_client(client)
+    if factorio_channel is not None:
+        print("Factorio server is {}!".format(util.get_state().upper()))
+        await factorio_channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+
+
+async def factorio_status_message_known_channel(channel):
+    if channel is not None:
+        print("Factorio server is {}!".format(util.get_state().upper()))
+        await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
 
 
 async def purge(channel):

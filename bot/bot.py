@@ -1,36 +1,26 @@
-import boto3
 import os
 import random
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv, find_dotenv
+from discord.ext import commands
 from util import privileges
 
-from aws import factorio_server, util
 from util import messages
 
 load_dotenv(find_dotenv())
 TOKEN = os.environ.get("TOKEN")
-INSTANCE_ID = os.environ.get("INSTANCE_ID")
 
 client = commands.Bot(command_prefix='$')
-client.remove_command('help')
-
-ec2 = boto3.resource('ec2')
-instance = ec2.Instance(INSTANCE_ID)
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.idle, activity=discord.Game('SHR1MP'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('SHR1MP'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
-    print('Factorio server status: {}!'.format(util.get_state()))
     print('------------')
-    factorio_channel = await messages.clear_factorio_text_channel(client)
-    if factorio_channel is not None:
-        await messages.factorio_welcome_message(factorio_channel)
-        await factorio_channel.send(embed=messages.help_embed())
+    await messages.factorio_status_message_known_client(client)
+
 
 @client.event
 async def on_member_join(member):
@@ -41,19 +31,16 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f'{member} left the SHR1MP Clan...')
 
-# Error handling
 
+# Error handling
 @client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await messages.perror(ctx, "Additional argument is required")
+    elif isinstance(error, commands.MissingPermissions):
+        await messages.perror(ctx, "You don't have permissions to use this command")
+    elif isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
-
-
-@client.command()
-async def help(context):
-    author = context.message.author
-    await author.send(embed=messages.help_embed())
-    await messages.clear(context, 1)
 
 
 @client.command()
@@ -76,62 +63,37 @@ async def _8ball(ctx, *, question):
 
 
 @client.command()
-async def factorio_on(context):
-    if util.get_state() == "stopped":
-        await factorio_server.turn_on_instance(context, instance)
-    elif util.get_state() == "running":
-        await context.send("Factorio server is already **ONLINE**!")
-    else:
-        await messages.perror(context, "Server is either being turned off or on right now. Wait")
-
-
-@client.command()
-async def factorio_off(context):
-    if util.get_state() == "running":
-        await factorio_server.turn_off_instance(context, instance)
-    elif util.get_state() == "stopped":
-        await context.send("Factorio server is already **OFFLINE**!")
-    else:
-        await messages.perror(context, "Server is either being turned off or on right now. Wait")
-
-
-@client.command()
-async def factorio_status(context):
-    channel = context.channel
-    await messages.purge(channel)
-    await util.send_state_message(channel, "Factorio")
-
-
-@client.command()
 @commands.has_permissions(manage_messages=True)
-async def clear(context, number: int):
-    await messages.clear(context, number + 1)
+async def clear(ctx, number: int):
+    await messages.clear(ctx, number + 1)
+
 
 # Error handling for clear (when there will be no specified int value given)
 @clear.error
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Please pass in the number of lines you want to clear')
+        await ctx.send('This command requires additional information.')
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send("You don't have permissions to use this command")
 
+
 @client.command()
 @commands.check(privileges.nuke_priv)
-async def nuke(context):
-    return await messages.reset_channel(context, discord)
-    if(commands.check()==False):
-        await perror(ctx, "Only Regis and futomak can use this command")
+async def nuke(ctx):
+    await messages.reset_channel(ctx)
 
 
 # LOADING / UNLOADING COGS
 
 @client.command()
-async def load(ctx, extension):
+async def load(extension):
     client.load_extension(f'cogs.{extension}')
 
+
 @client.command()
-async def unload(ctx, extension):
+async def unload(extension):
     client.unload_extension(f'cogs.{extension}')
+
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
