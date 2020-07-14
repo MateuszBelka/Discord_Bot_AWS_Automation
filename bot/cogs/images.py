@@ -22,7 +22,7 @@ class images(commands.Cog):
             self.reddit = praw.Reddit(client_id=REDDIT_APP_ID, client_secret=REDDIT_APP_SECRET, user_agent="shr1mpBot:%s:1.0" %REDDIT_APP_ID)
 
     # MEMIKI Z REDDITA
-    @commands.command()
+    @commands.command(aliases=['memik', 'meme'])
     async def memik(self, ctx, subreddit: str = ""):
         async with ctx.channel.typing():
             if self.reddit:
