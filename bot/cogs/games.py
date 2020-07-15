@@ -1,8 +1,12 @@
 # Authors:   Emil Andrzejewski
 # Created:  14-Jul-2020
+import random
+
 import discord
 from discord.ext import commands
+
 from gaw.controller import GuessAWordGame
+
 
 class Games(commands.Cog):
     def __init__(self, bot):
@@ -52,6 +56,28 @@ class Games(commands.Cog):
         guild = ctx.guild
         channel = ctx.channel
         await ctx.gaw_game.destroy(guild, channel.id)
+
+
+    # 8 BALL
+    @commands.command(aliases=['8ball', 'przepowiednia'])
+    async def _8ball(self, ctx, *, question):
+        responses = ['+1 byczku',
+                     '+0.7 byczku',
+                     'Si si toro',
+                     'To jest niemożliwe do przewidzenia',
+                     'Ooooj tak',
+                     'Nie ma chuja',
+                     'Ta ta jasne',
+                     'We zapytaj jeszcze raz',
+                     'Matematyczna szansa',
+                     'Prędzej Duda przestanie być prezydentem',
+                     'Zapytaj czy mnie to obchodzi',
+                     'Głupie pytanie',
+                     'Tak, a ja jestem papieżem',
+                     'Zrób to, co zrobiłby jezus - umrzyj w wieku 33 lat',
+                     'Przestań pytać czy Tom Cruise jest gejem i sprawdź to samemu',
+                     'Trump wykorzystuje mnie przy podejmowaniu decyzji o wszczęciu wojny']
+        await ctx.send(f'{random.choice(responses)}')
 
 def setup(client):
     client.add_cog(Games(client))

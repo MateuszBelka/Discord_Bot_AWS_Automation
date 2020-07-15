@@ -1,14 +1,12 @@
-import os
 import random
+import platform
+
 import discord
-from dotenv import load_dotenv, find_dotenv
 from discord.ext import commands
 from util import privileges
+from settings import *
 
 from util import messages
-
-load_dotenv(find_dotenv())
-TOKEN = os.environ.get("TOKEN")
 
 client = commands.Bot(command_prefix='$')
 
@@ -20,7 +18,6 @@ async def on_ready():
     print('ID: {}'.format(client.user.id))
     print('------------')
     await messages.factorio_status_message_known_client(client)
-
 
 @client.event
 async def on_member_join(member):
@@ -42,25 +39,20 @@ async def on_command_error(ctx, error):
     elif isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
 
+##############################################################################
+
+@client.command()
+async def stats(ctx):
+    pythonVersion = platform.python_version()
+    dpyVersion = discord.__version__
+    serverCount = len(client.guilds)
+    memberCount = len(set(client.get_all_members()))
+    await ctx.send(f'Liczba osób na serwerze: {memberCount} :CattoBlush: Korzystam z Pythona '
+                   f'{pythonVersion} i Discorda {dpyVersion}.')
 
 @client.command()
 async def shrimp(ctx):
     await ctx.send(f'shromp (latency: {round(client.latency * 1000)} ms)')
-
-
-@client.command(aliases=['8ball', 'przepowiednia'])
-async def _8ball(ctx, *, question):
-    responses = ['+1 byczku',
-                 '+0.7 byczku',
-                 'Si si toro',
-                 'To jest niemozliwe do przewidzenia',
-                 'Ooooj tak',
-                 'Nie ma chuja',
-                 'Ta ta jasne',
-                 'We zapytaj jeszcze raz',
-                 'Matematyczna szansa']
-    await ctx.send(f'{random.choice(responses)}')
-
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
@@ -81,7 +73,6 @@ async def clear_error(ctx, error):
 @commands.check(privileges.nuke_priv)
 async def nuke(ctx):
     await messages.reset_channel(ctx)
-
 
 # LOADING / UNLOADING COGS
 
