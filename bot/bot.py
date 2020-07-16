@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 from util import privileges
 from settings import *
+from cogs import automeme
 
 from util import messages
 
@@ -74,6 +75,11 @@ async def clear_error(ctx, error):
 async def nuke(ctx):
     await messages.reset_channel(ctx)
 
+#@client.command()
+#async def automemeoff():
+    #unload(automeme)
+    #return True
+
 # LOADING / UNLOADING COGS
 
 @client.command()
@@ -84,6 +90,7 @@ async def load(extension):
 @client.command()
 async def unload(extension):
     client.unload_extension(f'cogs.{extension}')
+    return True
 
 
 for filename in os.listdir('./cogs'):
