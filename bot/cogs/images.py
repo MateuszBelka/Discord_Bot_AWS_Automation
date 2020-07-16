@@ -6,6 +6,7 @@ from discord.ext import commands
 import discord
 from dotenv import load_dotenv, find_dotenv
 import os
+from discord.ext import tasks, commands
 
 import praw
 
@@ -41,7 +42,6 @@ class images(commands.Cog):
                 for i in range(0, post_to_pick):
                     submission = next(x for x in submissions if not x.stickied)
                 await ctx.send(submission.url)
-
             else:
                 await ctx.send('Cos nie dziala... skontaktuj sie z administratorem.')
 
