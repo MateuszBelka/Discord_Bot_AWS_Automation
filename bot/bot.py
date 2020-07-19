@@ -1,24 +1,24 @@
-import random
 import platform
 
 import discord
 from discord.ext import commands
 from util import privileges
 from settings import *
-from cogs import automeme
 
 from util import messages
 
 client = commands.Bot(command_prefix='$')
 
+
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game('SHR1MP'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('DM me $help'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
     print('------------')
     await messages.factorio_status_message_known_client(client)
+
 
 @client.event
 async def on_member_join(member):
@@ -40,6 +40,7 @@ async def on_command_error(ctx, error):
     elif isinstance(error, commands.CommandNotFound):
         await messages.perror(ctx, "Invalid command used")
 
+
 ##############################################################################
 
 @client.command()
@@ -51,9 +52,11 @@ async def stats(ctx):
     await ctx.send(f'Liczba osób na serwerze: {memberCount} :CattoBlush: Korzystam z Pythona '
                    f'{pythonVersion} i Discorda {dpyVersion}.')
 
+
 @client.command()
 async def shrimp(ctx):
     await ctx.send(f'shromp (latency: {round(client.latency * 1000)} ms)')
+
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
@@ -75,10 +78,11 @@ async def clear_error(ctx, error):
 async def nuke(ctx):
     await messages.reset_channel(ctx)
 
-#@client.command()
-#async def automemeoff():
-    #unload(automeme)
-    #return True
+
+# @client.command()
+# async def automemeoff():
+# unload(automeme)
+# return True
 
 # LOADING / UNLOADING COGS
 

@@ -9,7 +9,7 @@ from util import messages
 
 
 async def send_state_message(channel, prefix):
-    await channel.send("{} server is **{}**!".format(prefix, get_state().upper()))
+    await channel.send("{} server status: **{}**!".format(prefix, get_state().upper()))
 
 
 def get_state():

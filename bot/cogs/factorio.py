@@ -9,6 +9,11 @@ from aws import factorio_server, util
 from util import messages
 
 
+async def server_status(ctx):
+    channel = ctx.channel
+    await messages.factorio_status_message_known_channel(channel)
+
+
 class Factorio(commands.Cog):
 
     def __init__(self, client):
@@ -22,11 +27,14 @@ class Factorio(commands.Cog):
     @commands.command()
     async def factorio(self, ctx, *cmds):
         if 'on' in cmds or 'start' in cmds:
+            print("Turning factorio server ON!")
             await self.server_start(ctx)
         elif 'off' in cmds or 'stop' in cmds:
+            print("Turning factorio server OFF!")
             await self.server_stop(ctx)
         elif 'status' in cmds:
-            await self.server_status(ctx)
+            print("Checking factorio server status!")
+            await server_status(ctx)
         else:
             await messages.perror(ctx, "Try: $factorio on, start, off, stop, status. You need to use of those arguments in combination with $factorio")
 
@@ -45,10 +53,6 @@ class Factorio(commands.Cog):
             await ctx.send("Factorio server is already **OFFLINE**!")
         else:
             await messages.perror(ctx, "Server is either being turned off or on right now. Wait")
-
-    async def server_status(self, ctx):
-        channel = ctx.channel
-        await messages.factorio_status_message_known_channel(channel)
 
 
 def setup(client):
