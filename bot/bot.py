@@ -1,25 +1,23 @@
-import os
-import random
+import platform
+
 import discord
-from dotenv import load_dotenv, find_dotenv
 from discord.ext import commands
 from util import privileges
+from settings import *
 
 from util import messages
 
-load_dotenv(find_dotenv())
-TOKEN = os.environ.get("TOKEN")
-
 client = commands.Bot(command_prefix='$')
+
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game('SHR1MP'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('DM me $help'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
     print('------------')
-    await messages.factorio_status_message_known_client(client)
+    await messages.aws_all_servers_status(client)
 
 
 @client.event
@@ -43,23 +41,21 @@ async def on_command_error(ctx, error):
         await messages.perror(ctx, "Invalid command used")
 
 
+##############################################################################
+
+@client.command()
+async def stats(ctx):
+    pythonVersion = platform.python_version()
+    dpyVersion = discord.__version__
+    serverCount = len(client.guilds)
+    memberCount = len(set(client.get_all_members()))
+    await ctx.send(f'Liczba osób na serwerze: {memberCount} :CattoBlush: Korzystam z Pythona '
+                   f'{pythonVersion} i Discorda {dpyVersion}.')
+
+
 @client.command()
 async def shrimp(ctx):
     await ctx.send(f'shromp (latency: {round(client.latency * 1000)} ms)')
-
-
-@client.command(aliases=['8ball', 'przepowiednia'])
-async def _8ball(ctx, *, question):
-    responses = ['+1 byczku',
-                 '+0.7 byczku',
-                 'Si si toro',
-                 'To jest niemozliwe do przewidzenia',
-                 'Ooooj tak',
-                 'Nie ma chuja',
-                 'Ta ta jasne',
-                 'We zapytaj jeszcze raz',
-                 'Matematyczna szansa']
-    await ctx.send(f'{random.choice(responses)}')
 
 
 @client.command()
@@ -83,6 +79,11 @@ async def nuke(ctx):
     await messages.reset_channel(ctx)
 
 
+# @client.command()
+# async def automemeoff():
+# unload(automeme)
+# return True
+
 # LOADING / UNLOADING COGS
 
 @client.command()
@@ -93,6 +94,7 @@ async def load(extension):
 @client.command()
 async def unload(extension):
     client.unload_extension(f'cogs.{extension}')
+    return True
 
 
 for filename in os.listdir('./cogs'):

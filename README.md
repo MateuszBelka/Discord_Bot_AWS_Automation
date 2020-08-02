@@ -20,7 +20,12 @@ $ pip install -r requirements.txt
 #### Environment variables:
 Create `.env` file in the root directory and assign values of the following variables:
 - TOKEN - a "key" used to control a Discord Bot. Acquire it from *discordapp.com/developers/applications/{APPLICATION_ID}/bots*.
-- INSTANCE_ID - used to find our factorio server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
+- INSTANCE_ID_FACTORIO - used to find our factorio server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
+- INSTANCE_ID_MINECRAFT - used to find our minecraft server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
+- INSTANCE_ID_TERRARIA - used to find our terraria server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
+- REDDIT_APP_ID
+- REDDIT_APP_SECRET
+- REDDIT_ENABLED_MEME_SUBREDDITS
 
 ### AWS configuration
 #### Through AWS CLI
