@@ -47,14 +47,14 @@ async def clear_factorio_text_channel_known_client(client):
 async def factorio_status_message_known_client(client):
     factorio_channel = await clear_factorio_text_channel_known_client(client)
     if factorio_channel is not None:
-        print("Factorio server is {}!".format(util.get_state().upper()))
-        await factorio_channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+        print("Factorio server status: {}!".format(util.get_state().upper()))
+        await factorio_channel.send("Factorio server status: **{}**!".format(util.get_state().upper()))
 
 
 async def factorio_status_message_known_channel(channel):
     if channel is not None:
-        print("Factorio server is {}!".format(util.get_state().upper()))
-        await channel.send("Factorio server is **{}**!".format(util.get_state().upper()))
+        print("Factorio server status: {}!".format(util.get_state().upper()))
+        await channel.send("Factorio server status: **{}**!".format(util.get_state().upper()))
 
 
 async def purge(channel):
