@@ -1,14 +1,14 @@
 # Author:   Mateusz Belka
 # Created:  11-Jul-2020
-from util import messages
-from aws import util
+import cogs.aws
+from util import messages, aws
 
 
 async def turn_off_instance(ctx, instance):
     if did_instance_stop(instance):
-        await util.server_state_change_update(ctx, "stopped", "Factorio")
+        await aws.server_state_change_update(ctx, "stopped")
     else:
-        await messages.perror(ctx, "Failed to stop the Factorio server")
+        await messages.perror(ctx, "Failed to stop the {} server".format(cogs.aws.Aws.channel_game_map[ctx.channel.name]))
 
 
 def did_instance_stop(instance):
@@ -21,9 +21,9 @@ def did_instance_stop(instance):
 
 async def turn_on_instance(ctx, instance):
     if did_instance_start(instance):
-        await util.server_state_change_update(ctx, "running", "Factorio")
+        await aws.server_state_change_update(ctx, "running")
     else:
-        await messages.perror(ctx, "Failed to start the Factorio server")
+        await messages.perror(ctx, "Failed to start the {} server".format(cogs.aws.Aws.channel_game_map[ctx.channel.name]))
 
 
 def did_instance_start(instance):

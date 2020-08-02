@@ -1,6 +1,7 @@
 # Authors:   Mateusz Belka, Emil Andrzejewski
 # Created:  11-Jul-2020
-from aws import util
+from cogs.aws import Aws
+from util import aws
 
 
 async def clear(ctx, number):
@@ -21,7 +22,7 @@ async def delete_channel(ctx):
 
 
 async def create_new_channel(name, guild):
-    await guild.create_text_channel(name)
+    return await guild.create_text_channel(name)
 
 
 async def perror(ctx, msg):
@@ -29,32 +30,29 @@ async def perror(ctx, msg):
     await ctx.send(final_msg)
 
 
-async def clear_factorio_text_channel_known_client(client):
-    channel_name = "bot-factorio"
-    factorioChannel = None
+async def aws_all_servers_status(client):
+    awsChannel = None
     for guild in client.guilds:
-        for channel in guild.channels:
-            if channel.name == channel_name:
-                factorioChannel = channel
-                break
-        if factorioChannel is not None:
-            await purge(factorioChannel)
-        else:
-            await create_new_channel(channel_name, guild)
-    return factorioChannel
+        if (guild.name == "SHR1PM") or (guild.name == "shr1mpBot test"):
+            for aws_channel_name in Aws.supported_channels:
+                for guild_channel in guild.channels:
+                    if guild_channel.name == aws_channel_name:
+                        awsChannel = guild_channel
+                        break
+
+                if awsChannel is not None:
+                    await purge(awsChannel)
+                else:
+                    awsChannel = await create_new_channel(aws_channel_name, guild)
+
+                await aws_server_status_message_known_channel(awsChannel)
+                awsChannel = None
 
 
-async def factorio_status_message_known_client(client):
-    factorio_channel = await clear_factorio_text_channel_known_client(client)
-    if factorio_channel is not None:
-        print("Factorio server status: {}!".format(util.get_state().upper()))
-        await factorio_channel.send("Factorio server status: **{}**!".format(util.get_state().upper()))
-
-
-async def factorio_status_message_known_channel(channel):
+async def aws_server_status_message_known_channel(channel):
     if channel is not None:
-        print("Factorio server status: {}!".format(util.get_state().upper()))
-        await channel.send("Factorio server status: **{}**!".format(util.get_state().upper()))
+        print("{} server status: {}!".format(Aws.channel_game_map[channel.name], aws.get_state(channel).upper()))
+        await channel.send("{} server status: **{}**!".format(Aws.channel_game_map[channel.name], aws.get_state(channel).upper()))
 
 
 async def purge(channel):
