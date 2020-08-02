@@ -33,7 +33,7 @@ async def perror(ctx, msg):
 async def aws_all_servers_status(client):
     awsChannel = None
     for guild in client.guilds:
-        if (guild.name == "SHR1PM") or (guild.name == "shr1mpBot test"):
+        if (guild.name == "SHR1MP") or (guild.name == "shr1mpBot test"):
             for aws_channel_name in Aws.supported_channels:
                 for guild_channel in guild.channels:
                     if guild_channel.name == aws_channel_name:
