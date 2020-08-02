@@ -17,7 +17,7 @@ async def on_ready():
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
     print('------------')
-    await messages.factorio_status_message_known_client(client)
+    await messages.aws_all_servers_status(client)
 
 
 @client.event
