@@ -49,7 +49,6 @@ class Aws(commands.Cog):
         if not await self.is_proper_server_cmd_length(ctx, *cmds):
             return
         if not await self.is_proper_discord_channel(ctx):
-            print("test")
             return
 
         if 'on' in cmds or 'start' in cmds:
