@@ -45,11 +45,9 @@ async def server_state_change_update(ctx, final_state):
 
             state = get_state(ctx.channel)
             if state == final_state:
-                # await messages.clear(ctx, i - 1)
                 await messages.purge(ctx.channel)
                 await messages.aws_server_status_message_known_channel(ctx.channel)
                 break
             elif i == time_limit - 1:
-                # await messages.clear(ctx, i - 1)
                 await messages.purge(ctx.channel)
                 await messages.perror(ctx, "{} server status did not change to **{}** in time".format(cogs.aws.Aws.channel_game_map[ctx.channel.name], final_state.upper()))
