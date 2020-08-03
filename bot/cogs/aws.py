@@ -10,7 +10,6 @@ from util import messages, aws_instance_state, aws
 
 class Aws(commands.Cog):
     load_dotenv(find_dotenv())
-    ec2 = boto3.resource('ec2')
     factorio_instance_id = os.environ.get("INSTANCE_ID_FACTORIO")
     minecraft_vanilla_instance_id = os.environ.get("INSTANCE_ID_MINECRAFT")
     terraria_instance_id = os.environ.get("INSTANCE_ID_TERRARIA")
