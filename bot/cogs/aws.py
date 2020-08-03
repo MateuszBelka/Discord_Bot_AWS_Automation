@@ -34,10 +34,12 @@ class Aws(commands.Cog):
         print("Correct number of arguments")
         return True
 
-    def is_proper_discord_channel(self, ctx):
+    async def is_proper_discord_channel(self, ctx):
         channel_name = ctx.channel.name
         if channel_name in self.supported_channels:
             return True
+        print("Wrong channel")
+        await messages.perror(ctx, "Wrong channel")
         return False
 
     # Commands
@@ -46,7 +48,8 @@ class Aws(commands.Cog):
         print("\nProcessing server command")
         if not await self.is_proper_server_cmd_length(ctx, *cmds):
             return
-        if not self.is_proper_discord_channel(ctx):
+        if not await self.is_proper_discord_channel(ctx):
+            print("test")
             return
 
         if 'on' in cmds or 'start' in cmds:
