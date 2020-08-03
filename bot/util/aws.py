@@ -9,7 +9,7 @@ import cogs.aws
 from util import messages
 
 
-def get_state(channel):
+def get_instance_from_channel(channel):
     instance_name = ""
     for supported_channel in cogs.aws.Aws.supported_channels:
         if channel.name == supported_channel:
@@ -19,6 +19,11 @@ def get_state(channel):
 
     ec2 = boto3.resource('ec2')
     instance = ec2.Instance(instance_id)    # Set new instance to get updated info about it's status
+    return instance
+
+
+def get_state(channel):
+    instance = get_instance_from_channel(channel)
     return instance.state['Name']
 
 

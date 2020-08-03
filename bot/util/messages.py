@@ -56,6 +56,7 @@ async def aws_server_status_message_known_channel(channel):
                            "$server {start, on}, {stop, off}, status, reboot\n"
                            "-------------------\n")
         await channel.send("{} server status: **{}**!".format(Aws.channel_game_map[channel.name], aws.get_state(channel).upper()))
+        await channel.send("{} server's public ip: **{}**".format(Aws.channel_game_map[channel.name], aws.get_instance_from_channel(channel).public_ip_address))
 
 
 async def purge(channel):
