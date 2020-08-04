@@ -24,7 +24,7 @@ async def turn_off_instance(ctx, instance):
 async def turn_on_instance(ctx, instance):
     client = boto3.client('ec2')
     ec2 = boto3.resource('ec2')
-    if (ctx.channel.name == "bot-terraria") and (ec2.Instance(instance).instance_type != "t2.small"):
+    if (ctx.channel.name in cogs.aws.Aws.t2small_instance_channels) and (ec2.Instance(instance).instance_type != "t2.small"):
         print("Initiating Instance Type change")
 
         # change instance types
