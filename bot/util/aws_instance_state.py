@@ -38,5 +38,6 @@ async def turn_on_instance(ctx, instance):
 
 
 async def reboot_instance(ctx, instance):
-    await turn_off_instance(ctx, instance)
-    await turn_on_instance(ctx, instance)
+    client = boto3.client('ec2')
+    client.reboot_instances(InstanceIds=[instance])
+    await aws.server_state_change_update(ctx, "running")
