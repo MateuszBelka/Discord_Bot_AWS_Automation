@@ -15,7 +15,7 @@ class Aws(commands.Cog):
     terraria_instance_id = os.environ.get("INSTANCE_ID_TERRARIA")
 
     supported_channels = ["bot-factorio", "bot-minecraft-vanilla", "bot-terraria"]
-    t2small_instance_channels = []
+    t2small_instance_channels = os.environ.get("T2SMALL_INSTANCE_CHANNELS")
     channel_game_map = {"bot-factorio": "Factorio",
                         "bot-minecraft-vanilla": "Minecraft",
                         "bot-terraria": "Terraria"}
