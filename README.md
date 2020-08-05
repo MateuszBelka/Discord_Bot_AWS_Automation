@@ -23,6 +23,7 @@ Create `.env` file in the root directory and assign values of the following vari
 - INSTANCE_ID_FACTORIO - used to find our factorio server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
 - INSTANCE_ID_MINECRAFT - used to find our minecraft server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
 - INSTANCE_ID_TERRARIA - used to find our terraria server. Acquire it from [console.aws.amazon.com](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=desc:instanceId)
+- T2SMALL_INSTANCE_CHANNELS - discord channels in which server commands are supposed to change the instance type to t2.small
 - REDDIT_APP_ID
 - REDDIT_APP_SECRET
 - REDDIT_ENABLED_MEME_SUBREDDITS
