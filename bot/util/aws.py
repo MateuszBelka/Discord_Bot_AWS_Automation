@@ -70,11 +70,11 @@ async def turn_off_mcserver_check_loop(channel):
         print()
         print("Checking Minecraft Server inactivity status")
 
-        await countdown(timeout_check_interval_sec, channel)
-
         server_status = get_state(channel).upper()
         if server_status != "RUNNING":
             break
+
+        await countdown(timeout_check_interval_sec, channel)
 
         server_ip = get_instance_from_channel(channel).public_ip_address
         server = MinecraftServer.lookup(server_ip)

@@ -20,8 +20,8 @@ class Aws(commands.Cog):
                         "bot-minecraft-vanilla": "Minecraft",
                         "bot-terraria": "Terraria"}
     channel_instanceId_map = {"bot-factorio": factorio_instance_id,
-                              "bot-minecraft-vanilla": minecraft_vanilla_instance_id,
-                              "bot-terraria": terraria_instance_id}
+                              "bot-terraria": terraria_instance_id,
+                              "bot-minecraft-vanilla": minecraft_vanilla_instance_id}
 
     def __init__(self, client):
         self.client = client

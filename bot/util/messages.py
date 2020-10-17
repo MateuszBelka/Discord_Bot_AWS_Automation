@@ -46,6 +46,8 @@ async def aws_all_servers_status(client):
                     awsChannel = await create_new_channel(aws_channel_name, guild)
 
                 await aws_server_status_message(awsChannel)
+                if awsChannel.name == "bot-minecraft-vanilla":
+                    await aws.turn_off_mcserver_check_loop(awsChannel)
                 awsChannel = None
 
 
