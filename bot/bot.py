@@ -5,14 +5,14 @@ from discord.ext import commands
 from util import privileges
 from settings import *
 
-from util import messages
+from util import messages, aws
 
 client = commands.Bot(command_prefix='$')
 
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game('DM me $help'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('$help'))
     print('Logged in as')
     print('Name: {}'.format(client.user.name))
     print('ID: {}'.format(client.user.id))
@@ -34,11 +34,11 @@ async def on_member_remove(member):
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await messages.perror(ctx, "Additional argument is required")
+        await messages.perror(ctx.channel, "Additional argument is required")
     elif isinstance(error, commands.MissingPermissions):
-        await messages.perror(ctx, "You don't have permissions to use this command")
+        await messages.perror(ctx.channel, "You don't have permissions to use this command")
     elif isinstance(error, commands.CommandNotFound):
-        await messages.perror(ctx, "Invalid command used")
+        await messages.perror(ctx.channel, "Invalid command used")
 
 
 ##############################################################################
@@ -55,13 +55,13 @@ async def stats(ctx):
 
 @client.command()
 async def shrimp(ctx):
-    await ctx.send(f'shromp (latency: {round(client.latency * 1000)} ms)')
+    await ctx.send(f'shrimp (latency: {round(client.latency * 1000)} ms)')
 
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, number: int):
-    await messages.clear(ctx, number + 1)
+    await messages.clear(ctx.channel, number + 1)
 
 
 # Error handling for clear (when there will be no specified int value given)
@@ -76,7 +76,7 @@ async def clear_error(ctx, error):
 @client.command()
 @commands.check(privileges.nuke_priv)
 async def nuke(ctx):
-    await messages.reset_channel(ctx)
+    await messages.reset_channel(ctx.channel)
 
 
 # @client.command()

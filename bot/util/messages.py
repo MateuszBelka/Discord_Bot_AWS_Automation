@@ -4,30 +4,30 @@ from cogs.aws import Aws
 from util import aws
 
 
-async def clear(ctx, number):
+async def clear(channel, number):
     # Clears 'number' of messages in the channel that the command has been sent
-    await ctx.channel.purge(limit=number)
+    await channel.purge(limit=number)
 
 
-async def reset_channel(ctx):
-    name = ctx.channel.name
-    guild = ctx.channel.guild
+async def reset_channel(channel):
+    name = channel.name
+    guild = channel.guild
 
-    await delete_channel(ctx)
+    await delete_channel(channel)
     await create_new_channel(name, guild)
 
 
-async def delete_channel(ctx):
-    await ctx.channel.delete()
+async def delete_channel(channel):
+    await channel.delete()
 
 
 async def create_new_channel(name, guild):
     return await guild.create_text_channel(name)
 
 
-async def perror(ctx, msg):
+async def perror(channel, msg):
     final_msg = "ERROR: " + msg + "!"
-    await ctx.send(final_msg)
+    await channel.send(final_msg)
 
 
 async def aws_all_servers_status(client):
@@ -45,11 +45,14 @@ async def aws_all_servers_status(client):
                 else:
                     awsChannel = await create_new_channel(aws_channel_name, guild)
 
-                await aws_server_status_message_known_channel(awsChannel)
+                await aws_server_status_message(awsChannel)
+                if awsChannel.name == "bot-minecraft-vanilla":
+                    await aws.turn_off_mcserver_check_loop(awsChannel)
                 awsChannel = None
 
 
-async def aws_server_status_message_known_channel(channel):
+async def aws_server_status_message(channel):
+    await purge(channel)
     if channel is not None and channel.name in Aws.supported_channels:
         print("{} server status: {}!".format(Aws.channel_game_map[channel.name], aws.get_state(channel).upper()))
         await channel.send("**Commands Available on this channel:** ($help for more)\n"
