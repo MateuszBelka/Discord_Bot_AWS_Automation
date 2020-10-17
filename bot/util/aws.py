@@ -52,7 +52,6 @@ async def server_state_change_update(channel, final_state):
 
             state = get_state(channel)
             if state == final_state:
-                await messages.purge(channel)
                 await messages.aws_server_status_message(channel)
                 break
             elif i == time_limit - 1:
