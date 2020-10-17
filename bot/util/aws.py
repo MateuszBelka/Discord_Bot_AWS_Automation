@@ -62,8 +62,7 @@ async def server_state_change_update(channel, final_state):
 
 # Currently supporting only minecraft server
 async def turn_off_mcserver_check_loop(channel):
-    timeout_check_interval_sec = 300
-    turn_off_server = False
+    timeout_check_interval_sec = 60
 
     while True:
         print()
@@ -79,9 +78,6 @@ async def turn_off_mcserver_check_loop(channel):
         server = MinecraftServer.lookup(server_ip)
         status = server.status()
         if status.players.online == 0:
-            turn_off_server = True
-
-        if turn_off_server:
             print("Turning the server off due to lack of activity")
             await aws_instance_state.turn_off_instance(channel, cogs.aws.Aws.channel_instanceId_map[channel.name])
             break
