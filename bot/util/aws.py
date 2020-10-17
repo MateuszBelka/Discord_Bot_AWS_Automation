@@ -62,7 +62,7 @@ async def server_state_change_update(channel, final_state):
 
 # Currently supporting only minecraft server
 async def turn_off_mcserver_check_loop(channel):
-    timeout_check_interval_sec = 60
+    timeout_check_interval_sec = 300
 
     while True:
         print()
