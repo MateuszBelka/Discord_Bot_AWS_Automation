@@ -3,6 +3,10 @@ This is a discord bot for the Shr1mp server with the intent of supporting all of
 
 ## Functionality
 - Start/Stop Factorio server
+- Start/Stop Minecraft server
+- Start/Stop Terraria server
+- Generate random meme from selected subreddits
+
 
 ## Requirements
 #### Python 3.6.x 
@@ -46,7 +50,7 @@ AWS Secret Access Key: `from the step above`
 Default region name: eu-central-1  
 Default output format: json
 
-#### Through additional environments variables
+#### Through additional environments variables (recommended on heroku)
 - AWS_ACCESS_KEY_ID
 - AWS_SECRET_ACCESS_KEY
 - AWS_DEFAULT_REGION
