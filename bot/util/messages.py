@@ -50,6 +50,7 @@ async def aws_all_servers_status(client):
 
 
 async def aws_server_status_message(channel):
+    await purge(channel)
     if channel is not None and channel.name in Aws.supported_channels:
         print("{} server status: {}!".format(Aws.channel_game_map[channel.name], aws.get_state(channel).upper()))
         await channel.send("**Commands Available on this channel:** ($help for more)\n"

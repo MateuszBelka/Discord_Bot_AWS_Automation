@@ -66,7 +66,6 @@ async def turn_off_mcserver_check_loop(channel):
     timeout_check_interval_sec = 300
     turn_off_server = False
 
-    time.sleep(60)  # Extra 60 seconds to allow server to start running
     while True:
         print()
         print("Checking Minecraft Server inactivity status")
