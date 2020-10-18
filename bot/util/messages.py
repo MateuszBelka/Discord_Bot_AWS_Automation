@@ -32,6 +32,7 @@ async def perror(channel, msg):
 
 async def aws_all_servers_status(client):
     awsChannel = None
+    mcChannel = None
     for guild in client.guilds:
         if (guild.name == "SHR1MP") or (guild.name == "shr1mpBot test"):
             for aws_channel_name in Aws.supported_channels:
@@ -40,15 +41,15 @@ async def aws_all_servers_status(client):
                         awsChannel = guild_channel
                         break
 
-                if awsChannel is not None:
-                    await purge(awsChannel)
-                else:
+                if awsChannel is None:
                     awsChannel = await create_new_channel(aws_channel_name, guild)
 
                 await aws_server_status_message(awsChannel)
-                if awsChannel.name == "bot-minecraft-vanilla":
-                    await aws.turn_off_mcserver_check_loop(awsChannel)
+                if (awsChannel.name == "bot-minecraft-vanilla") and (aws.get_state(awsChannel).upper() == "RUNNING"):
+                    mcChannel = awsChannel
                 awsChannel = None
+            if mcChannel is not None:
+                await aws.turn_off_mcserver_check_loop(mcChannel)
 
 
 async def aws_server_status_message(channel):
