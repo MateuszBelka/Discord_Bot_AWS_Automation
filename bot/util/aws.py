@@ -1,6 +1,6 @@
 # Author:   Mateusz Belka
 # Created:  12-Jul-2020
-import time
+import asyncio
 import boto3
 import os
 import discord
@@ -47,7 +47,7 @@ async def server_state_change_update(channel, final_state):
         message_content += "."
         await last_message.edit(content=message_content)
 
-        time.sleep(1)
+        await asyncio.sleep(1)
         if i % interval == 0:
 
             state = get_state(channel)
@@ -64,6 +64,11 @@ async def server_state_change_update(channel, final_state):
 async def turn_off_mcserver_check_loop(channel):
     timeout_check_interval_sec = 300
 
+    await channel.send(
+        "{} server inactivity check in: **00:00**".format(cogs.aws.Aws.channel_game_map[channel.name]))
+    last_messageID = channel.last_message_id
+    last_message = await discord.TextChannel.fetch_message(channel, last_messageID)
+
     while True:
         print()
         print("Checking Minecraft Server inactivity status")
@@ -72,7 +77,7 @@ async def turn_off_mcserver_check_loop(channel):
         if server_status != "RUNNING":
             break
 
-        await countdown(timeout_check_interval_sec, channel)
+        await countdown(timeout_check_interval_sec, channel, last_message)
 
         server_ip = get_instance_from_channel(channel).public_ip_address
         server = MinecraftServer.lookup(server_ip)
@@ -83,22 +88,19 @@ async def turn_off_mcserver_check_loop(channel):
             break
 
 
-async def countdown(t, channel):
+async def countdown(t, channel, last_message):
     mins, secs = divmod(t, 60)
     timer = '{:02d}:{:02d}'.format(mins, secs)
-    await channel.send(
-        "{} server inactivity check in: **{}**".format(cogs.aws.Aws.channel_game_map[channel.name], timer))
-    last_messageID = channel.last_message_id
-    last_message = await discord.TextChannel.fetch_message(channel, last_messageID)
 
     while t:
+        if get_state(channel).upper() != "RUNNING":
+            break
+
         mins, secs = divmod(t, 60)
         timer = '{:02d}:{:02d}'.format(mins, secs)
 
         await last_message.edit(
             content="{} server inactivity check in: **{}**".format(cogs.aws.Aws.channel_game_map[channel.name], timer))
 
-        time.sleep(1)
+        await asyncio.sleep(1)
         t -= 1
-
-    await last_message.delete()
