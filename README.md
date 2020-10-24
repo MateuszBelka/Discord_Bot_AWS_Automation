@@ -5,6 +5,8 @@ This is a discord bot for the Shr1mp server with the intent of supporting all of
 - Start/Stop Factorio server
 - Start/Stop Minecraft server
 - Start/Stop Terraria server
+- Automatically update server hardware depending on user needs
+- Automate customization of server configuration to minimize costs
 - Generate random meme from selected subreddits
 
 
