@@ -2,11 +2,11 @@
 This is a discord bot for the Shr1mp server with the intent of supporting all of its users needs. The Bot will be hosted on heroku upon release.
 
 ## Functionality
-- Start/Stop Factorio server
-- Start/Stop Minecraft server
-- Start/Stop Terraria server
+- Start/Stop Factorio AWS server
+- Start/Stop Minecraft AWS server
+- Start/Stop Terraria AWS server
 - Automatically update server hardware depending on user needs
-- Automate customization of server configuration to minimize costs
+- Automate customization of offline server's configuration to minimize costs
 - Generate random meme from selected subreddits
 
 
